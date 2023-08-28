@@ -1,0 +1,16 @@
+{
+    "name": "ModelUI",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d2c606655fdeca743b70507003bad044"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
