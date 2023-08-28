@@ -11,7 +11,7 @@ namespace Domination.Core.CommandExecutor
 
         public override void ExecuteSpecificCommand(IMoveCommand command)
         {
-            Debug.Log($"Move command");
+            Debug.Log($"{name} is moving to {command.Target}");
         }
 
         #endregion

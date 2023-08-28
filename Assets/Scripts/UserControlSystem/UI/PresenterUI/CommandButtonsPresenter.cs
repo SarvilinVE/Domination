@@ -4,7 +4,7 @@ using Domination.Utils;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Zenject;
 
 namespace Domination.UserControlSystem.UI.Presenter
 {
@@ -15,7 +15,8 @@ namespace Domination.UserControlSystem.UI.Presenter
 
         [SerializeField] private SelectableValue _selectable;
         [SerializeField] private CommandButtonsView _view;
-        [SerializeField] private AssetsContext _context;
+
+        [Inject] private CommandButtonsModel _model;
 
         private ISelecatable _currentSelectable;
 
@@ -26,9 +27,13 @@ namespace Domination.UserControlSystem.UI.Presenter
 
         private void Start()
         {
+            _view.OnClick += _model.OnCommandButtonClicked;
+            _model.onCommandSend += _view.UnblockAllInteractions;
+            _model.onCommandCancel += _view.UnblockAllInteractions;
+            _model.onCommandAccepted += _view.BlockInteractions;
+
             _selectable.OnSelected += OnSelected;
             OnSelected(_selectable.CurrentValue);
-            _view.OnClick += OnButtonClick;
         }
 
         #endregion
@@ -38,48 +43,48 @@ namespace Domination.UserControlSystem.UI.Presenter
 
         private void OnButtonClick(ICommandExecutor commandExecutor)
         {
-            var unitProducer = commandExecutor as CommandExecutorBase<IProduceUnitCommand>;
+            //var unitProducer = commandExecutor as CommandExecutorBase<IProduceUnitCommand>;
 
-            if (unitProducer != null)
-            {
-                unitProducer.ExecuteSpecificCommand(_context.Inject(new ProduceUnitCommand()));
-                return;
-            }
+            //if (unitProducer != null)
+            //{
+            //    unitProducer.ExecuteSpecificCommand(_context.Inject(new ProduceUnitCommand()));
+            //    return;
+            //}
 
-            var attacker = commandExecutor as CommandExecutorBase<IAttackCommand>;
+            //var attacker = commandExecutor as CommandExecutorBase<IAttackCommand>;
 
-            if (attacker != null)
-            {
-                attacker.ExecuteSpecificCommand(_context.Inject(new AttackCommand()));
-                return;
-            }
+            //if (attacker != null)
+            //{
+            //    attacker.ExecuteSpecificCommand(_context.Inject(new AttackCommand()));
+            //    return;
+            //}
 
-            var stopper = commandExecutor as CommandExecutorBase<IStopCommand>;
+            //var stopper = commandExecutor as CommandExecutorBase<IStopCommand>;
 
-            if (stopper != null)
-            {
-                stopper.ExecuteSpecificCommand(_context.Inject(new StopCommand()));
-                return;
-            }
+            //if (stopper != null)
+            //{
+            //    stopper.ExecuteSpecificCommand(_context.Inject(new StopCommand()));
+            //    return;
+            //}
 
-            var patroller = commandExecutor as CommandExecutorBase<IPatrolCommand>;
+            //var patroller = commandExecutor as CommandExecutorBase<IPatrolCommand>;
 
-            if (patroller != null)
-            {
-                patroller.ExecuteSpecificCommand(_context.Inject(new PatrolCommand()));
-                return;
-            }
+            //if (patroller != null)
+            //{
+            //    patroller.ExecuteSpecificCommand(_context.Inject(new PatrolCommand()));
+            //    return;
+            //}
 
-            var mover = commandExecutor as CommandExecutorBase<IMoveCommand>;
+            //var mover = commandExecutor as CommandExecutorBase<IMoveCommand>;
 
-            if (mover != null)
-            {
-                mover.ExecuteSpecificCommand(_context.Inject(new MoveCommand()));
-                return;
-            }
+            //if (mover != null)
+            //{
+            //    mover.ExecuteSpecificCommand(_context.Inject(new MoveCommand()));
+            //    return;
+            //}
 
-            throw new
-                ApplicationException($"{nameof(CommandButtonsPresenter)}.{nameof(OnButtonClick)} Unknown type of commands executor: {commandExecutor.GetType().FullName}");
+            //throw new
+            //    ApplicationException($"{nameof(CommandButtonsPresenter)}.{nameof(OnButtonClick)} Unknown type of commands executor: {commandExecutor.GetType().FullName}");
         }
 
         private void OnSelected(ISelecatable selecatable)
@@ -87,6 +92,11 @@ namespace Domination.UserControlSystem.UI.Presenter
             if (_currentSelectable == selecatable)
             {
                 return;
+            }
+
+            if (_currentSelectable != null)
+            {
+                _model.OnSelectionChange();
             }
 
             _currentSelectable = selecatable;

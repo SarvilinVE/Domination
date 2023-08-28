@@ -1297,6 +1297,7 @@ GameObject:
   - component: {fileID: 572397520}
   - component: {fileID: 572397519}
   - component: {fileID: 572397518}
+  - component: {fileID: 572397522}
   m_Layer: 5
   m_Name: '[CANVAS]'
   m_TagString: Untagged
@@ -1386,6 +1387,83 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &572397522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 572397517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65dfb0d6f72097046b0fba4f442a2f48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _legacyContext: {fileID: 11400000, guid: 248bb733b1f196942b2233d13b75bb78, type: 2}
+  _groundClicksRMB: {fileID: 11400000, guid: 9dcdf3288d5fda94fa316cce60324d24, type: 2}
+--- !u!1 &594642164
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 594642166}
+  - component: {fileID: 594642165}
+  m_Layer: 0
+  m_Name: SceneContext
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &594642165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594642164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89715ad69b973a14899afa2c6730b30b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptableObjectInstallers: []
+  _monoInstallers:
+  - {fileID: 572397522}
+  _installerPrefabs: []
+  _autoRun: 1
+  OnPreInstall:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPostInstall:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPreResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPostResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  _parentNewObjectsUnderSceneContext: 0
+  _contractNames: []
+  _parentContractNames: []
+--- !u!4 &594642166
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594642164}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &598791092
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1934,7 +2012,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _selectable: {fileID: 11400000, guid: 576b0c7cc616ea940964414222d33c70, type: 2}
   _view: {fileID: 1425671263}
-  _context: {fileID: 11400000, guid: 248bb733b1f196942b2233d13b75bb78, type: 2}
 --- !u!1 &783801073
 GameObject:
   m_ObjectHideFlags: 0
@@ -1944,6 +2021,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 783801074}
+  - component: {fileID: 783801075}
   m_Layer: 0
   m_Name: '[GROUND]'
   m_TagString: Untagged
@@ -1969,6 +2047,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &783801075
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783801073}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 20, y: 1, z: 20}
+  m_Center: {x: 5, y: -0.5, z: 5}
 --- !u!1 &867525801
 GameObject:
   m_ObjectHideFlags: 0
@@ -2700,6 +2791,8 @@ MonoBehaviour:
   _eventSystem: {fileID: 1489946023}
   _camera: {fileID: 963194227}
   _selectedObject: {fileID: 11400000, guid: 576b0c7cc616ea940964414222d33c70, type: 2}
+  _groundClicksRMB: {fileID: 11400000, guid: 9dcdf3288d5fda94fa316cce60324d24, type: 2}
+  _groundTransform: {fileID: 783801074}
 --- !u!4 &1053039266
 Transform:
   m_ObjectHideFlags: 0

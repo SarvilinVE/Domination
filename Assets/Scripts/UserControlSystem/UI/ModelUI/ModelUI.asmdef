@@ -2,7 +2,10 @@
     "name": "ModelUI",
     "rootNamespace": "",
     "references": [
-        "GUID:d2c606655fdeca743b70507003bad044"
+        "GUID:d2c606655fdeca743b70507003bad044",
+        "GUID:42055ae8aac729a42bc6f9258b40c7f3",
+        "GUID:8d4b085c83bdfea43b70d8e6f25697f4",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

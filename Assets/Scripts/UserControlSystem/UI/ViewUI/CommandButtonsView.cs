@@ -44,6 +44,32 @@ namespace Domination.UserControlSystem.UI.View
 
         #region Methods
 
+        public void BlockInteractions(ICommandExecutor commandExecutor)
+        {
+            UnblockAllInteractions();
+            GetButtonGameObjectByType(commandExecutor.GetType()).GetComponent<Selectable>().interactable = false;
+        }
+
+        public void UnblockAllInteractions() => SetInteractable(true);
+
+        public void SetInteractable(bool value)
+        {
+            _attackButton.GetComponent<Selectable>().interactable = value;
+            _moveButton.GetComponent<Selectable>().interactable = value;
+            _stopButton.GetComponent<Selectable>().interactable = value;
+            _patrolButton.GetComponent<Selectable>().interactable = value;
+            _produceButton.GetComponent<Selectable>().interactable = value;
+        }
+
+        public GameObject GetButtonGameObjectByType(Type executorInstanceType)
+        {
+            return _buttonsByExecutorType
+                .Where(type =>
+                type.Key.IsAssignableFrom(executorInstanceType))
+                .First()
+                .Value;
+        }
+
         public void MakeLayout(IEnumerable<ICommandExecutor> commandExecutors)
         {
             foreach (var currentExecutor in commandExecutors)
