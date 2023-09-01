@@ -1,8 +1,6 @@
 using Domination.Abstractions;
 using Domination.UserControlSystem;
 using Domination.UserControlSystem.CommandCreator;
-using Domination.Utils;
-using UnityEngine;
 using Zenject;
 
 public class UiModelInstaller : MonoInstaller
@@ -10,8 +8,8 @@ public class UiModelInstaller : MonoInstaller
 
     #region Fields
 
-    [SerializeField] private AssetsContext _legacyContext;
-    [SerializeField] private Vector3Value _groundClicksRMB;
+    //[SerializeField] private AssetsContext _legacyContext;
+    //[SerializeField] private Vector3Value _groundClicksRMB;
 
     #endregion
 
@@ -20,8 +18,8 @@ public class UiModelInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
-        Container.Bind<AssetsContext>().FromInstance(_legacyContext);
-        Container.Bind<Vector3Value>().FromInstance(_groundClicksRMB);
+        //Container.Bind<AssetsContext>().FromInstance(_legacyContext);
+        //Container.Bind<Vector3Value>().FromInstance(_groundClicksRMB);
 
         Container.Bind<CommandCreatorBase<IProduceUnitCommand>>().To<ProduceUnitCommandCommandCreator>().AsTransient();
         Container.Bind<CommandCreatorBase<IAttackCommand>>().To<AttackCommandCommandCreator>().AsTransient();

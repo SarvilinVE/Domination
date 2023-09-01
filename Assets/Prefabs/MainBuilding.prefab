@@ -237,10 +237,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93b3682ca33dd8e4e94b5152601ea976, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitPrefab: {fileID: 7141852312920551264, guid: fdc685a3e0ea77f4198fdfecafd49031, type: 3}
   _unitsParent: {fileID: 0}
   _maxHealth: 1000
   _icon: {fileID: 21300000, guid: 697264c06a21ede47b4b781251249768, type: 3}
+  _pivotPoint: {fileID: 249941401602593449}
 --- !u!65 &2148992599526035954
 BoxCollider:
   m_ObjectHideFlags: 0

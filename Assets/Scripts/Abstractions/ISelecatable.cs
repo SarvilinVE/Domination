@@ -3,10 +3,9 @@ using UnityEngine;
 
 namespace Domination.Abstractions
 {
-    public interface ISelecatable
+    public interface ISelecatable : IHealthHolder
     {
-        float Health { get; }
-        float MaxHeath { get; }
+        Transform PivotPoint { get; }
         Sprite Icon { get; }
     }
 }

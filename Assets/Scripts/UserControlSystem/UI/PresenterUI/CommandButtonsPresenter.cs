@@ -32,7 +32,7 @@ namespace Domination.UserControlSystem.UI.Presenter
             _model.onCommandCancel += _view.UnblockAllInteractions;
             _model.onCommandAccepted += _view.BlockInteractions;
 
-            _selectable.OnSelected += OnSelected;
+            _selectable.OnNewValue += OnSelected;
             OnSelected(_selectable.CurrentValue);
         }
 

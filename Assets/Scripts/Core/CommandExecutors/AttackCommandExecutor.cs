@@ -11,7 +11,7 @@ namespace Domination.Core.CommandExecutor
 
         public override void ExecuteSpecificCommand(IAttackCommand command)
         {
-            Debug.Log($"Attack command");
+            Debug.Log($"{name} attacked {command.Target} with {command.Target.Health} / {command.Target.MaxHealth}");
         }
 
         #endregion

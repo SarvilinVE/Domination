@@ -1,6 +1,9 @@
 using Domination.Abstractions;
+using GluonGui.Dialog;
+using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.EventSystems;
 
 namespace Domination.UserControlSystem
@@ -13,6 +16,8 @@ namespace Domination.UserControlSystem
         [SerializeField] private EventSystem _eventSystem;
         [SerializeField] private Camera _camera;
         [SerializeField] private SelectableValue _selectedObject;
+
+        [SerializeField] private AttackableValue _attackablesRMB;
 
         [SerializeField] private Vector3Value _groundClicksRMB;
         [SerializeField] private Transform _groundTransform;
@@ -31,7 +36,7 @@ namespace Domination.UserControlSystem
 
         private void Update()
         {
-            if (!Input.GetMouseButtonDown(0) && !Input.GetMouseButtonDown(1)) return;
+            if (!Input.GetMouseButtonUp(0) && !Input.GetMouseButton(1)) return;
 
             if (_eventSystem.IsPointerOverGameObject())
             {
@@ -39,42 +44,41 @@ namespace Domination.UserControlSystem
             }
 
             var ray = _camera.ScreenPointToRay(Input.mousePosition);
+            var hits = Physics.RaycastAll(ray);
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonUp(0))
             {
-                var hits = Physics.RaycastAll(ray);
-
-                if (hits.Length == 0)
+                if (WeHit<ISelecatable>(hits, out var selectable))
                 {
-                    return;
+                    _selectedObject.SetValue(selectable);
                 }
-
-                var selectable = hits
-                    .Select(hit => hit.collider.GetComponent<ISelecatable>())
-                    .Where(c => c != null)
-                    .FirstOrDefault();
-                _selectedObject.SetValue(selectable);
             }
             else
             {
-                if (_groundPlane.Raycast(ray, out var enter))
+                if (WeHit<IAttackable>(hits, out var attackable))
+                {
+                    _attackablesRMB.SetValue(attackable);
+                }
+                else if (_groundPlane.Raycast(ray, out var enter))
                 {
                     _groundClicksRMB.SetValue(ray.origin + ray.direction * enter);
                 }
             }
+        }
 
-            //var hits = Physics.RaycastAll(_camera.ScreenPointToRay(Input.mousePosition));
-            
-            //if (hits.Length == 0 )
-            //{
-            //    return;
-            //}
+        private bool WeHit<T>(RaycastHit[] hits, out T result) where T : class
+        {
+            result = default;
+            if (hits.Length == 0)
+            {
+                return false;
+            }
 
-            //var mainBuilding = hits
-            //    .Select(hit => hit.collider.GetComponent<ISelecatable>())
-            //    .Where(c => c != null)
-            //    .FirstOrDefault();
-            //_selectedObject.SetValue(mainBuilding);
+            result = hits
+                .Select(hit => hit.collider.GetComponent<T>())
+                .Where(c => c != null)
+                .FirstOrDefault();
+            return result != default;
         }
 
         #endregion

@@ -6,42 +6,47 @@ using Zenject;
 
 namespace Domination.UserControlSystem.CommandCreator
 {
-    public class MoveCommandCommandCreator : CommandCreatorBase<IMoveCommand>
+    public class MoveCommandCommandCreator : CancellableCommandCreatorBase<IMoveCommand, Vector3>
     {
 
         #region Fields
 
-        [Inject] private AssetsContext _context;
+        //[Inject] private AssetsContext _context;
 
-        private Action<IMoveCommand> _creationCallback;
+        //private Action<IMoveCommand> _creationCallback;
 
         #endregion
 
 
         #region Methods
 
-        [Inject]
-        private void Init(Vector3Value groundClicks)
+        protected override IMoveCommand CreateCommand(Vector3 argument)
         {
-            groundClicks.onNewValue += OnNewValue;
+            return new MoveCommand(argument);
         }
 
-        private void OnNewValue(Vector3 groundClick)
-        {
-            _creationCallback?.Invoke(_context.Inject(new MoveCommand(groundClick)));
-            _creationCallback = null;
-        }
-        protected override void ClassSpecificCommandCreator(Action<IMoveCommand> creatonCallback)
-        {
-            _creationCallback = creatonCallback;
-        }
+        //[Inject]
+        //private void Init(Vector3Value groundClicks)
+        //{
+        //    groundClicks.OnNewValue += OnNewValue;
+        //}
 
-        public override void ProcessCancel()
-        {
-            base.ProcessCancel();
+        //private void OnNewValue(Vector3 groundClick)
+        //{
+        //    _creationCallback?.Invoke(_context.Inject(new MoveCommand(groundClick)));
+        //    _creationCallback = null;
+        //}
+        //protected override void ClassSpecificCommandCreation(Action<IMoveCommand> creatonCallback)
+        //{
+        //    _creationCallback = creatonCallback;
+        //}
 
-            _creationCallback = null;
-        }
+        //public override void ProcessCancel()
+        //{
+        //    base.ProcessCancel();
+
+        //    _creationCallback = null;
+        //}
 
         #endregion
 

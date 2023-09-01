@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 803d4642bb55964428396f15b24df164, type: 2}
 --- !u!1 &44950949
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,7 +140,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &44950950
 Transform:
@@ -1399,8 +1399,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65dfb0d6f72097046b0fba4f442a2f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _legacyContext: {fileID: 11400000, guid: 248bb733b1f196942b2233d13b75bb78, type: 2}
-  _groundClicksRMB: {fileID: 11400000, guid: 9dcdf3288d5fda94fa316cce60324d24, type: 2}
 --- !u!1 &594642164
 GameObject:
   m_ObjectHideFlags: 0
@@ -1699,7 +1697,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &630738670
 Transform:
@@ -2229,7 +2227,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &884210139
 Transform:
@@ -2791,6 +2789,7 @@ MonoBehaviour:
   _eventSystem: {fileID: 1489946023}
   _camera: {fileID: 963194227}
   _selectedObject: {fileID: 11400000, guid: 576b0c7cc616ea940964414222d33c70, type: 2}
+  _attackablesRMB: {fileID: 11400000, guid: aeed6f9295fd7ae478e73a5c5b0aad8d, type: 2}
   _groundClicksRMB: {fileID: 11400000, guid: 9dcdf3288d5fda94fa316cce60324d24, type: 2}
   _groundTransform: {fileID: 783801074}
 --- !u!4 &1053039266
@@ -3096,7 +3095,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1330094094
 Transform:

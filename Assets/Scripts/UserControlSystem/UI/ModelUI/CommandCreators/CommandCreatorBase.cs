@@ -18,13 +18,13 @@ namespace Domination.UserControlSystem.CommandCreator
 
             if (classSpecificExecutor != null)
             {
-                ClassSpecificCommandCreator(callback);
+                ClassSpecificCommandCreation(callback);
             }
 
             return commandExecutor;
         }
 
-        protected abstract void ClassSpecificCommandCreator(Action<T> creatonCallback);
+        protected abstract void ClassSpecificCommandCreation(Action<T> creatonCallback);
 
         public virtual void ProcessCancel() { }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Domination.Core
 {
-    public class MainBuilding : CommandExecutorBase<IProduceUnitCommand>, ISelecatable
+    public class MainBuilding : CommandExecutorBase<IProduceUnitCommand>, ISelecatable, IAttackable
     {
 
         #region Fields
@@ -13,6 +13,7 @@ namespace Domination.Core
 
         [SerializeField] private float _maxHealth;
         [SerializeField] Sprite _icon;
+        [SerializeField] private Transform _pivotPoint;
 
         private float _health = 1000.0f;
 
@@ -23,9 +24,11 @@ namespace Domination.Core
 
         public float Health => _health;
 
-        public float MaxHeath => _maxHealth;
+        public float MaxHealth => _maxHealth;
 
         public Sprite Icon => _icon;
+
+        public Transform PivotPoint => _pivotPoint;
 
         #endregion
 

@@ -24,7 +24,7 @@ namespace Domination.UserControlSystem
 
         private void Start()
         {
-            _selectedValue.OnSelected += OnSelected;
+            _selectedValue.OnNewValue += OnSelected;
         }
 
         private void OnSelected(ISelecatable selected)
@@ -36,11 +36,11 @@ namespace Domination.UserControlSystem
             if (selected != null)
             {
                 _selectedImage.sprite = selected.Icon;
-                _text.text = $"{selected.Health} / {selected.MaxHeath}";
+                _text.text = $"{selected.Health} / {selected.MaxHealth}";
                 _healthSlider.minValue = 0.0f;
-                _healthSlider.maxValue = selected.MaxHeath;
+                _healthSlider.maxValue = selected.MaxHealth;
                 _healthSlider.value = selected.Health;
-                var color = Color.Lerp(Color.red, Color.green, selected.Health / selected.MaxHeath);
+                var color = Color.Lerp(Color.red, Color.green, selected.Health / selected.MaxHealth);
                 _sliderBackground.color = color * 0.5f;
                 _sliderFillImage.color = color;
             }

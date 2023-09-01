@@ -17,7 +17,7 @@ namespace Domination.UserControlSystem.CommandCreator
 
         #region Methods
 
-        protected override void ClassSpecificCommandCreator(Action<IProduceUnitCommand> creatonCallback)
+        protected override void ClassSpecificCommandCreation(Action<IProduceUnitCommand> creatonCallback)
         {
             creatonCallback?.Invoke(_context.Inject(new ProduceUnitCommand()));
         }
