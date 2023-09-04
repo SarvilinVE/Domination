@@ -11,6 +11,7 @@ namespace Domination.UserControlSystem.CommandCreator
         #region Fields
 
         [Inject] private AssetsContext _context;
+        [Inject] private DiContainer _diContainer;
 
         #endregion
 
@@ -19,7 +20,10 @@ namespace Domination.UserControlSystem.CommandCreator
 
         protected override void ClassSpecificCommandCreation(Action<IProduceUnitCommand> creatonCallback)
         {
-            creatonCallback?.Invoke(_context.Inject(new ProduceUnitCommand()));
+            //creatonCallback?.Invoke(_context.Inject(new ProduceUnitCommand()));
+            var produceUnitCommand = _context.Inject(new ProduceUnitCommand());
+            _diContainer.Inject(produceUnitCommand);
+            creatonCallback?.Invoke(produceUnitCommand);
         }
 
         #endregion

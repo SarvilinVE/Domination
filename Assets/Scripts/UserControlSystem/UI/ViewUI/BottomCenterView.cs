@@ -1,0 +1,104 @@
+using Domination.Abstractions;
+using System;
+using TMPro;
+using UniRx;
+using UnityEngine;
+using UnityEngine.UI;
+using Zenject;
+
+
+namespace Domination.UIView
+{
+    public class BottomCenterView : MonoBehaviour
+    {
+
+        #region Fields
+
+        [SerializeField] private Slider _productionProgressSlider;
+        [SerializeField] private TMP_Text _currentUnitName;
+        [SerializeField] private Image[] _images;
+        [SerializeField] private GameObject[] _imageHolders;
+        [SerializeField] private Button[] _buttons;
+
+        private Subject<int> _cancelButtonClicks = new Subject<int>();
+        private IDisposable _unitProductionTaskCt;
+
+        #endregion
+
+
+        #region Properties
+
+        public IObservable<int> CancelButtonClicks => _cancelButtonClicks;
+
+        #endregion
+
+
+        #region Methods
+
+        [Inject]
+        private void Init()
+        {
+            for (var i = 0; i < _buttons.Length; i++)
+            {
+                _images[i].sprite = null;
+                _imageHolders[i].SetActive(false);
+            }
+
+            _productionProgressSlider.gameObject.SetActive(false);
+            _currentUnitName.text = string.Empty;
+            _currentUnitName.enabled = false;
+            _unitProductionTaskCt?.Dispose();
+        }
+
+        public void Clear()
+        {
+            for (int i = 0; i < _images.Length; i++)
+            {
+                _images[i].sprite = null;
+                _imageHolders[i].SetActive(false);
+            }
+
+            _productionProgressSlider.gameObject.SetActive(false);
+            _currentUnitName.text = string.Empty;
+            _currentUnitName.enabled = false;
+            _unitProductionTaskCt?.Dispose();
+        }
+
+        public void SetTask(IUnitProductionTask task, int index)
+        {
+            if (task == null)
+            {
+                _imageHolders[index].SetActive(false);
+                _images[index].sprite = null;
+
+                if (index == 0)
+                {
+                    _productionProgressSlider.gameObject.SetActive(false);
+                    _currentUnitName.text = string.Empty;
+                    _currentUnitName.enabled = false;
+                    _unitProductionTaskCt?.Dispose();
+                }
+            }
+            else
+            {
+                _imageHolders[index].SetActive(true);
+                _images[index].sprite = task.Icon;
+
+                if (index == 0)
+                {
+                    _productionProgressSlider.gameObject.SetActive(true);
+                    _currentUnitName.text = task.UnitName;
+                    _currentUnitName.enabled = true;
+                    _unitProductionTaskCt = Observable.EveryUpdate()
+                        .Subscribe(_ =>
+                        {
+                            _productionProgressSlider.value = task.TimeLeft / task.ProductionTime;
+                        });
+                }
+            }
+        }
+
+        #endregion
+
+    }
+}

@@ -3,6 +3,7 @@ using Domination.UserControlSystem;
 using Domination.UserControlSystem.CommandCreator;
 using Zenject;
 
+
 public class UiModelInstaller : MonoInstaller
 {
 
@@ -30,6 +31,7 @@ public class UiModelInstaller : MonoInstaller
         Container.Bind<string>().WithId("Unit").FromInstance("Unit");
 
         Container.Bind<CommandButtonsModel>().AsTransient();
+        Container.Bind<BottomCenterModel>().AsTransient();
     }
 
     #endregion

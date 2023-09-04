@@ -913,7 +913,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 80, y: 80}
-  m_Spacing: {x: 0, y: 0}
+  m_Spacing: {x: 2, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 5
 --- !u!114 &172194684
@@ -2425,7 +2425,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 185223896}
   m_HandleRect: {fileID: 0}
-  m_Direction: 0
+  m_Direction: 1
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
@@ -2657,6 +2657,7 @@ GameObject:
   - component: {fileID: 572397519}
   - component: {fileID: 572397518}
   - component: {fileID: 572397522}
+  - component: {fileID: 572397523}
   m_Layer: 5
   m_Name: '[CANVAS]'
   m_TagString: Untagged
@@ -2759,6 +2760,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65dfb0d6f72097046b0fba4f442a2f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &572397523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 572397517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcda58273864516439c6e161546416ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &594642164
 GameObject:
   m_ObjectHideFlags: 0
@@ -2792,6 +2805,7 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: 572397522}
   - {fileID: 1267769696}
+  - {fileID: 572397523}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -2879,6 +2893,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1382275022136272637, guid: b6a043044dc92684ca9ab81d487601e2, type: 3}
+      propertyPath: _unitsParent
+      value: 
+      objectReference: {fileID: 1186536419}
+    - target: {fileID: 4779306927285248135, guid: b6a043044dc92684ca9ab81d487601e2, type: 3}
       propertyPath: _unitsParent
       value: 
       objectReference: {fileID: 1186536419}
@@ -5237,6 +5255,8 @@ GameObject:
   - component: {fileID: 1248066695}
   - component: {fileID: 1248066697}
   - component: {fileID: 1248066696}
+  - component: {fileID: 1248066698}
+  - component: {fileID: 1248066699}
   m_Layer: 5
   m_Name: Central
   m_TagString: Untagged
@@ -5302,6 +5322,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1248066694}
   m_CullTransparentMesh: 1
+--- !u!114 &1248066698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248066694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa5f12464184ed48a2aa3d911cca4c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _productionProgressSlider: {fileID: 491527376}
+  _currentUnitName: {fileID: 1233180002}
+  _images:
+  - {fileID: 489146838}
+  - {fileID: 2134361505}
+  - {fileID: 482771000}
+  - {fileID: 1749978098}
+  - {fileID: 1265016646}
+  - {fileID: 1033806814}
+  _imageHolders:
+  - {fileID: 489146835}
+  - {fileID: 2134361502}
+  - {fileID: 482770997}
+  - {fileID: 1749978095}
+  - {fileID: 1265016643}
+  - {fileID: 1033806811}
+  _buttons:
+  - {fileID: 489146837}
+  - {fileID: 2134361504}
+  - {fileID: 482770999}
+  - {fileID: 1749978097}
+  - {fileID: 1265016645}
+  - {fileID: 1033806813}
+--- !u!114 &1248066699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248066694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2385f1ed2afedd544822d9c766403c66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiHolder: {fileID: 1430752492}
 --- !u!1 &1253354443
 GameObject:
   m_ObjectHideFlags: 0
