@@ -1,10 +1,11 @@
 using Domination.Abstractions;
 using Domination.UserControlSystem.UI.View;
-using Domination.Utils;
 using System;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 using Zenject;
+
 
 namespace Domination.UserControlSystem.UI.Presenter
 {
@@ -13,9 +14,10 @@ namespace Domination.UserControlSystem.UI.Presenter
 
         #region Fields
 
-        [SerializeField] private SelectableValue _selectable;
+        //[SerializeField] private SelectableValue _selectable;
         [SerializeField] private CommandButtonsView _view;
 
+        [Inject] private IObservable<ISelecatable> _selectedValues;
         [Inject] private CommandButtonsModel _model;
 
         private ISelecatable _currentSelectable;
@@ -32,8 +34,9 @@ namespace Domination.UserControlSystem.UI.Presenter
             _model.onCommandCancel += _view.UnblockAllInteractions;
             _model.onCommandAccepted += _view.BlockInteractions;
 
-            _selectable.OnNewValue += OnSelected;
-            OnSelected(_selectable.CurrentValue);
+            //_selectable.OnNewValue += OnSelected;
+            //OnSelected(_selectable.CurrentValue);
+            _selectedValues.Subscribe(OnSelected);
         }
 
         #endregion

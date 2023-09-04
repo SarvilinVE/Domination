@@ -4,6 +4,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 namespace Domination.Core.CommandExecutor
 {
     public class MoveCommandExecutor : CommandExecutorBase<IMoveCommand>

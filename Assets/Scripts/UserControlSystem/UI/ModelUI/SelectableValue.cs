@@ -1,4 +1,5 @@
 using Domination.Abstractions;
+using Domination.Utils;
 using UnityEngine;
 
 
@@ -6,7 +7,7 @@ namespace Domination.UserControlSystem
 {
     [CreateAssetMenu(fileName = nameof(SelectableValue), menuName = "Strategy Game/" +
 nameof(SelectableValue), order = 0)]
-    public class SelectableValue : ScriptableObjectValueBase<ISelecatable>
+    public class SelectableValue : StatefulScriptableObjectValueBase<ISelecatable>
     {
 
         //#region Fields

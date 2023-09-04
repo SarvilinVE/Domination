@@ -1,6 +1,7 @@
 using Domination.Abstractions;
 using Domination.UserControlSystem;
 using Domination.Utils;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -15,6 +16,7 @@ public class AssetInstaller : ScriptableObjectInstaller<AssetInstaller>
     [SerializeField] private Vector3Value _groundClicksRMB;
     [SerializeField] private SelectableValue _selectables;
     [SerializeField] private AttackableValue _attackableClickRMB;
+    [SerializeField] private Sprite _unitSprite;
 
     #endregion
 
@@ -26,6 +28,9 @@ public class AssetInstaller : ScriptableObjectInstaller<AssetInstaller>
         Container.BindInstances(_legacyContext, _groundClicksRMB, _selectables, _attackableClickRMB);
         Container.Bind<IAwaitable<IAttackable>>().FromInstance(_attackableClickRMB);
         Container.Bind<IAwaitable<Vector3>>().FromInstance(_groundClicksRMB);
+        Container.Bind<IObservable<ISelecatable>>().FromInstance(_selectables);
+
+        Container.Bind<Sprite>().WithId("Unit").FromInstance(_unitSprite);
     }
 
     #endregion

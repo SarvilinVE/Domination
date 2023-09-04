@@ -1,7 +1,7 @@
 using Domination.Abstractions;
 using Domination.Utils;
 using UnityEngine;
-
+using Zenject;
 
 namespace Domination.UserControlSystem
 {
@@ -9,6 +9,10 @@ namespace Domination.UserControlSystem
     {
 
         #region Fields
+
+        [Inject (Id = "Unit")] public string UnitName { get; }
+        [Inject (Id = "Unit")] public Sprite Icon { get; }
+        [Inject (Id = "Unit")] public float ProductionTime { get; }
 
         [InjectAsset("Unit")] private GameObject _unitPrefab;
 

@@ -1,7 +1,11 @@
 using Domination.Abstractions;
+using System;
 using TMPro;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
+
 
 namespace Domination.UserControlSystem
 {
@@ -15,7 +19,8 @@ namespace Domination.UserControlSystem
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Image _sliderBackground;
         [SerializeField] private Image _sliderFillImage;
-        [SerializeField] private SelectableValue _selectedValue;
+        //[SerializeField] private SelectableValue _selectedValue;
+        [Inject] private IObservable<ISelecatable> _selectedValues;
 
         #endregion
 
@@ -24,7 +29,8 @@ namespace Domination.UserControlSystem
 
         private void Start()
         {
-            _selectedValue.OnNewValue += OnSelected;
+            //_selectedValue.OnNewValue += OnSelected;
+            _selectedValues.Subscribe(OnSelected);
         }
 
         private void OnSelected(ISelecatable selected)

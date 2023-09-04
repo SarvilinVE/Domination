@@ -1,4 +1,5 @@
 using Domination.Abstractions;
+using Domination.Utils;
 using UnityEngine;
 
 
@@ -6,7 +7,7 @@ namespace Domination.UserControlSystem
 {
     [CreateAssetMenu(fileName = nameof(AttackableValue), menuName = "Strategy Game/" +
     nameof(AttackableValue), order = 0)]
-    public class AttackableValue : ScriptableObjectValueBase<IAttackable>
+    public class AttackableValue : StatelessScriptableObjectValueBase<IAttackable>
     {
         //#region Fields
 
