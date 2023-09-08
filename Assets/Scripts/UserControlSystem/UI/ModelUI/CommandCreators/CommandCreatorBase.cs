@@ -1,8 +1,6 @@
 using Domination.Abstractions;
+using Domination.Core;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 
 namespace Domination.UserControlSystem.CommandCreator
@@ -14,7 +12,7 @@ namespace Domination.UserControlSystem.CommandCreator
 
         public ICommandExecutor ProcessCommandExecutor(ICommandExecutor commandExecutor, Action<T> callback)
         {
-            var classSpecificExecutor = commandExecutor as CommandExecutorBase<T>;
+            var classSpecificExecutor = commandExecutor /*as CommandExecutorBase<T>*/;
 
             if (classSpecificExecutor != null)
             {

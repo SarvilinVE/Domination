@@ -1,8 +1,10 @@
 using Domination.Abstractions;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UniRx;
 using UnityEngine;
+using Zenject;
 
 
 namespace Domination.Core
@@ -17,6 +19,8 @@ namespace Domination.Core
 
         private ReactiveCollection<IUnitProductionTask> _queue = 
             new ReactiveCollection<IUnitProductionTask>();
+
+        [Inject] private DiContainer _diContainer;
 
         #endregion
 
@@ -40,7 +44,16 @@ namespace Domination.Core
             if (innerTask.TimeLeft <= 0)
             {
                 RemoveTaskAtIndex(0);
-                Instantiate(innerTask.UnitPrefab, new Vector3(Random.Range(-10,10), 0.0f, Random.Range(-10,10)), Quaternion.identity, _unitsParent);
+                var instance = _diContainer.InstantiatePrefab(innerTask.UnitPrefab, 
+                    new Vector3(Random.Range(-10, 10), 0.0f, Random.Range(-10, 10)), 
+                    Quaternion.identity, _unitsParent);
+
+                var queue = instance.GetComponent<ICommandsQueue>();
+                var mainBuilding = GetComponent<MainBuilding>();
+                queue.EnqueueCommand(new MoveCommand(mainBuilding.RallyPoint));
+
+                var factionMember = instance.GetComponent<FactionMember>();
+                factionMember.SetFaction(GetComponent<FactionMember>().FactionId);
             }
         }
 
@@ -61,10 +74,11 @@ namespace Domination.Core
             _queue.RemoveAt(_queue.Count - 1);
         }
 
-        public override void ExecuteSpecificCommand(IProduceUnitCommand command)
+        public override Task ExecuteSpecificCommand(IProduceUnitCommand command)
         {
-            if (_queue.Count >= _maximumUnitsInQueue) return;
+            if (_queue.Count >= _maximumUnitsInQueue) return Task.CompletedTask;
             _queue.Add(new UnitProductionTask(command.ProductionTime, command.UnitName, command.UnitPrefab, command.Icon));
+            return Task.CompletedTask;
         }
 
         #endregion

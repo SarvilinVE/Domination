@@ -12,13 +12,14 @@ namespace Domination.UserControlSystem.UI.View
 
         #region Fields
 
-        public Action<ICommandExecutor> OnClick;
+        public Action<ICommandExecutor, ICommandsQueue> OnClick;
 
         [SerializeField] private GameObject _attackButton;
         [SerializeField] private GameObject _moveButton;
         [SerializeField] private GameObject _patrolButton;
         [SerializeField] private GameObject _stopButton;
         [SerializeField] private GameObject _produceButton;
+        [SerializeField] private GameObject _setRallyButton;
 
         private Dictionary<Type, GameObject> _buttonsByExecutorType;
 
@@ -31,11 +32,12 @@ namespace Domination.UserControlSystem.UI.View
         {
             _buttonsByExecutorType = new Dictionary<Type, GameObject>()
             {
-                {typeof(CommandExecutorBase<IAttackCommand>), _attackButton },
-                {typeof(CommandExecutorBase<IMoveCommand>), _moveButton },
-                {typeof(CommandExecutorBase<IPatrolCommand>), _patrolButton },
-                {typeof(CommandExecutorBase<IStopCommand>), _stopButton },
-                {typeof(CommandExecutorBase<IProduceUnitCommand>), _produceButton },
+                {typeof(ICommandExecutor<IAttackCommand>), _attackButton },
+                {typeof(ICommandExecutor<IMoveCommand>), _moveButton },
+                {typeof(ICommandExecutor<IPatrolCommand>), _patrolButton },
+                {typeof(ICommandExecutor<IStopCommand>), _stopButton },
+                {typeof(ICommandExecutor<IProduceUnitCommand>), _produceButton },
+                {typeof(ICommandExecutor<ISetRallyPointCommand>), _setRallyButton },
             };
         }
 
@@ -59,6 +61,7 @@ namespace Domination.UserControlSystem.UI.View
             _stopButton.GetComponent<Selectable>().interactable = value;
             _patrolButton.GetComponent<Selectable>().interactable = value;
             _produceButton.GetComponent<Selectable>().interactable = value;
+            _setRallyButton.GetComponent<Selectable>().interactable = value;
         }
 
         public GameObject GetButtonGameObjectByType(Type executorInstanceType)
@@ -70,7 +73,7 @@ namespace Domination.UserControlSystem.UI.View
                 .Value;
         }
 
-        public void MakeLayout(IEnumerable<ICommandExecutor> commandExecutors)
+        public void MakeLayout(IEnumerable<ICommandExecutor> commandExecutors, ICommandsQueue queue)
         {
             foreach (var currentExecutor in commandExecutors)
             {
@@ -83,7 +86,7 @@ namespace Domination.UserControlSystem.UI.View
                     .Value;
                 buttonGameObject.SetActive(true);
                 var button = buttonGameObject.GetComponent<Button>();
-                button.onClick.AddListener(() => OnClick?.Invoke(currentExecutor));
+                button.onClick.AddListener(() => OnClick?.Invoke(currentExecutor, queue));
             }
         }
 

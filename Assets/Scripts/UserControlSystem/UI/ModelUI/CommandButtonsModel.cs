@@ -1,7 +1,9 @@
 using Domination.Abstractions;
 using Domination.UserControlSystem.CommandCreator;
 using System;
+using UnityEngine;
 using Zenject;
+
 
 namespace Domination.UserControlSystem
 {
@@ -19,6 +21,7 @@ namespace Domination.UserControlSystem
         [Inject] private CommandCreatorBase<IPatrolCommand> _patroller;
         [Inject] private CommandCreatorBase<IStopCommand> _stopper;
         [Inject] private CommandCreatorBase<IMoveCommand> _mover;
+        [Inject] private CommandCreatorBase<ISetRallyPointCommand> _setRally;
 
         private bool _commandIsPanding;
 
@@ -27,7 +30,7 @@ namespace Domination.UserControlSystem
 
         #region Methods
 
-        public void OnCommandButtonClicked(ICommandExecutor commandExecutor)
+        public void OnCommandButtonClicked(ICommandExecutor commandExecutor, ICommandsQueue commandsQueue)
         {
             if (_commandIsPanding)
             {
@@ -37,11 +40,12 @@ namespace Domination.UserControlSystem
             _commandIsPanding = true;
             onCommandAccepted?.Invoke(commandExecutor);
 
-            _unitProducer.ProcessCommandExecutor(commandExecutor, command => ExecuteCommandWrapper(commandExecutor, command));
-            _attacker.ProcessCommandExecutor(commandExecutor, command => ExecuteCommandWrapper(commandExecutor, command));
-            _mover.ProcessCommandExecutor(commandExecutor, command => ExecuteCommandWrapper(commandExecutor, command));
-            _stopper.ProcessCommandExecutor(commandExecutor, command => ExecuteCommandWrapper(commandExecutor, command));
-            _patroller.ProcessCommandExecutor(commandExecutor, command => ExecuteCommandWrapper(commandExecutor, command));
+            _unitProducer.ProcessCommandExecutor(commandExecutor, command => ExecuteCommandWrapper(command, commandsQueue));
+            _attacker.ProcessCommandExecutor(commandExecutor, command => ExecuteCommandWrapper(command, commandsQueue));
+            _mover.ProcessCommandExecutor(commandExecutor, command => ExecuteCommandWrapper(command, commandsQueue));
+            _stopper.ProcessCommandExecutor(commandExecutor, command => ExecuteCommandWrapper(command, commandsQueue));
+            _patroller.ProcessCommandExecutor(commandExecutor, command => ExecuteCommandWrapper(command, commandsQueue));
+            _setRally.ProcessCommandExecutor(commandExecutor, command => ExecuteCommandWrapper(command, commandsQueue));
         }
 
         private void ProcessOnCancel()
@@ -51,13 +55,19 @@ namespace Domination.UserControlSystem
             _mover.ProcessCancel();
             _stopper.ProcessCancel();
             _patroller.ProcessCancel();
+            _setRally.ProcessCancel();
 
             onCommandCancel?.Invoke();
         }
 
-        private void ExecuteCommandWrapper(ICommandExecutor commandExecutor, object command)
+        private void ExecuteCommandWrapper(object command, ICommandsQueue commandsQueue)
         {
-            commandExecutor.ExecuteCommand(command);
+            if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.RightShift))
+            {
+                commandsQueue.Cancel();
+            }
+
+            commandsQueue.EnqueueCommand(command);
             _commandIsPanding = false;
             onCommandSend?.Invoke();
         }

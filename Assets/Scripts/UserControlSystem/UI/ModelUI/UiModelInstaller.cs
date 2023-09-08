@@ -27,6 +27,7 @@ public class UiModelInstaller : MonoInstaller
         Container.Bind<CommandCreatorBase<IStopCommand>>().To<StopCommandCommandCreator>().AsTransient();
         Container.Bind<CommandCreatorBase<IPatrolCommand>>().To<PatrolCommandCommandCreator>().AsTransient();
         Container.Bind<CommandCreatorBase<IMoveCommand>>().To<MoveCommandCommandCreator>().AsTransient();
+        Container.Bind<CommandCreatorBase<ISetRallyPointCommand>>().To<SetRallyPointCommandCreator>().AsTransient();
         Container.Bind<float>().WithId("Unit").FromInstance(5.0f);
         Container.Bind<string>().WithId("Unit").FromInstance("Unit");
 

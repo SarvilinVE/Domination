@@ -109,7 +109,10 @@ namespace Domination.UserControlSystem.UI.Presenter
             {
                 var commandExecutors = new List<ICommandExecutor>();
                 commandExecutors.AddRange((selecatable as Component).GetComponentsInParent<ICommandExecutor>());
-                _view.MakeLayout(commandExecutors);
+                //_view.MakeLayout(commandExecutors);
+
+                var queue = (selecatable as Component).GetComponentInParent<ICommandsQueue>();
+                _view.MakeLayout(commandExecutors, queue);
             }
         }
 

@@ -1,5 +1,6 @@
 using Domination.Abstractions;
 using System.Threading;
+using System.Threading.Tasks;
 
 
 namespace Domination.Core.CommandExecutor
@@ -16,8 +17,9 @@ namespace Domination.Core.CommandExecutor
 
         #region ClassLifeCycle
 
-        public override void ExecuteSpecificCommand(IStopCommand command)
+        public override async Task ExecuteSpecificCommand(IStopCommand command)
         {
+            await Task.CompletedTask;
             CancellationTokenSource?.Cancel();
         }
 
